@@ -34,6 +34,7 @@ public class Empresa {
             case 8: precoAcao *= 1.4; break;
             case 9: precoAcao *= 1.5; break;
         } if (precoAcao < 1) precoAcao = 1.0;
+        System.out.println(randomNumber);
 
 
     }
