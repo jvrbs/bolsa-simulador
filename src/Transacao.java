@@ -30,4 +30,7 @@ public class Transacao {
     public void setQuantidade(int quantidade) {this.quantidade = quantidade;}
     public void setValorUnitario(double valorUnitario) {this.valorUnitario = valorUnitario;}
     public void setDataHora(LocalDateTime dataHora) {this.dataHora = dataHora;}
-}
+
+    }
+
+
