@@ -1,4 +1,6 @@
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Empresa {
     private String nome;
@@ -7,7 +9,8 @@ public class Empresa {
     private double precoAnterior;
     private Boolean pagaDividendos;
     private double percentualDividendos;
-    private Boolean valorizacao;
+    private static List<Empresa> empresas = new ArrayList<>();
+
 
     public Empresa(String nome, String ticker, double precoAcao, Boolean pagaDividendos, double percentualDividendos) {
         this.nome = nome;
@@ -16,6 +19,11 @@ public class Empresa {
         this.precoAnterior = precoAcao;
         this.pagaDividendos = pagaDividendos;
         this.percentualDividendos = percentualDividendos;
+        empresas.add(this);
+    }
+
+    public static List<Empresa> getEmpresas(){
+        return new ArrayList<>(empresas);
     }
 
     public String getNome() {return nome;}
@@ -26,6 +34,8 @@ public class Empresa {
     public void setNome(String nome) {this.nome = nome;}
     public void setTicker(String ticker) {this.ticker = ticker;}
     public void setPrecoAcao(double precoAcao) {this.precoAcao = precoAcao;}
+
+
 
     public void Variacao(){
         precoAnterior = precoAcao;
@@ -43,9 +53,6 @@ public class Empresa {
             case 8: precoAcao *= 1.4; break;
             case 9: precoAcao *= 1.5; break;
         } if (precoAcao < 1) precoAcao = 1.0;
-        if (precoAcao > precoAnterior){
-            valorizacao = true;
-        } else {valorizacao = false;}
         System.out.println(randomNumber);
 
     }
@@ -60,4 +67,10 @@ public class Empresa {
         double valorizacao = precoAcao - precoAnterior;
         return valorizacao * percentualDividendos;
     }
+
+    public void visualizarEmpresas(){
+
+    }
+
+
 }
