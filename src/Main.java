@@ -58,23 +58,83 @@ public class Main {
                         System.out.println("Você precisa criar um usuário");
                         break;
                     }
-                    System.out.println("\\n=== EMPRESAS DISPONÍVEIS ===");
+                    System.out.println("\n=== EMPRESAS DISPONÍVEIS ===");
                     List<Empresa> empresas = Empresa.getEmpresas();
 
                     for (int i = 0; i < empresas.size(); i++){
                         Empresa emp = empresas.get(i);
-                        System.out.printf("%d - %s (%s) - Preço: R$ %.2f%n", i + 1, emp.getNome(), emp.getTicker(), emp.getPrecoAcao());
+                        System.out.printf( " - " + "%d - %s (%s) - Preço: R$ %.2f%n", i + 1, emp.getNome(), emp.getTicker(), emp.getPrecoAcao());
                     }
 
-                    try (
-                        System.out.println("Qual empresa você deseja comprar?: ")
-                        String nomeEmpresa = scanner.nextLine();
+                    int empresaIndex = -1;
+                    while (true) {
+                        System.out.print("Digite o índice da empresa desejada (1-" + empresas.size() + "): ");
 
-                        int t = 0;
-                        for (empresa : Empresa)
-                    )
+                        if (scanner.hasNextInt()) {
+                            int empresaUser = scanner.nextInt();
+                            if (empresaUser >= 1 && empresaUser <= empresas.size()) {
+                                empresaIndex = empresaUser - 1; // Convertendo para índice do array (0-based)
+                                break;
+                            } else {
+                                System.out.println("❌ Índice inválido! Escolha entre 1 e " + empresas.size());
+                            }
+                        } else {
+                            System.out.println("❌ Digite um número válido!");
+                            scanner.next(); // Limpa input inválido
+                        }
+                    }
 
-                    
+                    // Validação da quantidade
+                    int quantidade = 0;
+                    while (true) {
+                        System.out.print("Digite a quantidade desejada: ");
+
+                        if (scanner.hasNextInt()) {
+                            int qntUser = scanner.nextInt();
+                            if (qntUser > 0) {
+                                quantidade = qntUser;
+                                break;
+                            } else {
+                                System.out.println("❌ A quantidade deve ser maior que zero!");
+                            }
+                        } else {
+                            System.out.println("❌ Digite um número válido!");
+                            scanner.next(); // Limpa input inválido
+                        }
+                    }
+
+                    // Executa a compra
+                    Empresa empresaSelecionada = empresas.get(empresaIndex);
+                    double custoTotal = empresaSelecionada.getPrecoAcao() * quantidade;
+
+                    System.out.printf("\n=== RESUMO DA COMPRA ===%n");
+                    System.out.printf("Empresa: %s (%s)%n", empresaSelecionada.getNome(), empresaSelecionada.getTicker());
+                    System.out.printf("Quantidade: %d ações%n", quantidade);
+                    System.out.printf("Preço unitário: R$ %.2f%n", empresaSelecionada.getPrecoAcao());
+                    System.out.printf("Custo total: R$ %.2f%n", custoTotal);
+                    System.out.printf("Seu saldo atual: R$ %.2f%n", u1.getSaldo());
+
+                    if (u1.getSaldo() >= custoTotal) {
+                        System.out.print("Confirmar compra? (s/n): ");
+                        scanner.nextLine(); // Limpa buffer
+                        String confirmacao = scanner.nextLine().toLowerCase();
+
+                        if (confirmacao.equals("s") || confirmacao.equals("sim")) {
+                            u1.comprar(empresaSelecionada, quantidade);
+                            System.out.printf("✅ Compra realizada com sucesso!%n");
+                            System.out.printf("Novo saldo: R$ %.2f%n", u1.getSaldo());
+                        } else {
+                            System.out.println("❌ Compra cancelada.");
+                        }
+                    } else {
+                        System.out.printf("❌ Saldo insuficiente! Faltam R$ %.2f%n", (custoTotal - u1.getSaldo()));
+                    }
+                    break;
+
+
+
+
+
                 
                 case 3:
 
@@ -82,9 +142,6 @@ public class Main {
 
 
                 default:
-                    if (opcao != 7) {
-                        System.out.println("Opção inválida ou não implementada!");
-                    }
                     break;
             }
 
