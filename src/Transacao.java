@@ -7,7 +7,6 @@ public class Transacao {
     private int quantidade;
     private double valorUnitario;
     private LocalDateTime dataHora;
-    // teste
 
     public Transacao(Usuario usuario, Empresa empresa, String tipo, int quantidade, double valorUnitario) {
         this.usuario = usuario;

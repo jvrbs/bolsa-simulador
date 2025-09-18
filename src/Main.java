@@ -22,7 +22,7 @@ public class Main {
             System.out.print("Escolha uma opção: ");
 
             opcao = scanner.nextInt();
-            scanner.nextLine(); // Limpar o buffer
+            scanner.nextLine(); 
 
             switch (opcao) {
                 case 1:
@@ -35,7 +35,7 @@ public class Main {
                         try {
                             System.out.print("Digite o saldo inicial: ");
                             saldo = scanner.nextDouble();
-                            scanner.nextLine(); // Limpar o buffer
+                            scanner.nextLine(); 
 
                             if (saldo <= 0) {
                                 System.out.println("Saldo deve ser maior que zero!");
@@ -44,7 +44,7 @@ public class Main {
                             saldoValido = true;
                         } catch (Exception e) {
                             System.out.println("Valor inválido! Digite um número.");
-                            scanner.nextLine(); // Limpar o buffer em caso de erro
+                            scanner.nextLine(); 
                         }
                     }
 
@@ -65,6 +65,19 @@ public class Main {
                         Empresa emp = empresas.get(i);
                         System.out.printf("%d - %s (%s) - Preço: R$ %.2f%n", i + 1, emp.getNome(), emp.getTicker(), emp.getPrecoAcao());
                     }
+
+                    try (
+                        System.out.println("Qual empresa você deseja comprar?: ")
+                        String nomeEmpresa = scanner.nextLine();
+
+                        int t = 0;
+                        for (empresa : Empresa)
+                    )
+
+                    
+                
+                case 3:
+
 
 
 
