@@ -37,24 +37,18 @@ public class Empresa {
 
 
 
-    public void Variacao(){
+    public void Variacao() {
         precoAnterior = precoAcao;
-        Random random = new Random();
-        int randomNumber = random.nextInt(10);
-        switch (randomNumber){
-            case 0: precoAcao *= 0.5; break;
-            case 1: precoAcao *= 0.4; break;
-            case 2: precoAcao *= 0.3; break;
-            case 3: precoAcao *= 0.2; break;
-            case 4: precoAcao *= 0.1; break;
-            case 5: precoAcao *= 1.1; break;
-            case 6: precoAcao *= 1.2; break;
-            case 7: precoAcao *= 1.3; break;
-            case 8: precoAcao *= 1.4; break;
-            case 9: precoAcao *= 1.5; break;
-        } if (precoAcao < 1) precoAcao = 1.0;
-        System.out.println(randomNumber);
 
+        Random random = new Random();
+        int passos = (int) ((10.0 - (-15.0)) / 0.5) + 1; // total de possibilidades
+        int indice = random.nextInt(passos);             // sorteia o índice
+        double variacaoPercentual = -15.0 + (indice * 0.5); // calcula a % sorteada
+        precoAcao *= (1 + variacaoPercentual / 100.0);
+        if (precoAcao < 1.0) {
+            precoAcao = 1.0;
+        }
+        System.out.printf("Variação aplicada: %.1f%%%n", variacaoPercentual);
     }
 
     public double calculoDividendos(Double valor){

@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Main {
     public static void main(String[] args) {
         Empresa Petrobras = new Empresa("Petrobras", "PETR4", 35.0, true, 0.05);
@@ -76,10 +77,10 @@ public class Main {
                                 empresaIndex = empresaUser - 1; // Convertendo para índice do array (0-based)
                                 break;
                             } else {
-                                System.out.println("❌ Índice inválido! Escolha entre 1 e " + empresas.size());
+                                System.out.println(" Índice inválido! Escolha entre 1 e " + empresas.size());
                             }
                         } else {
-                            System.out.println("❌ Digite um número válido!");
+                            System.out.println(" Digite um número válido!");
                             scanner.next(); // Limpa input inválido
                         }
                     }
@@ -95,11 +96,11 @@ public class Main {
                                 quantidade = qntUser;
                                 break;
                             } else {
-                                System.out.println("❌ A quantidade deve ser maior que zero!");
+                                System.out.println(" A quantidade deve ser maior que zero!");
                             }
                         } else {
-                            System.out.println("❌ Digite um número válido!");
-                            scanner.next(); // Limpa input inválido
+                            System.out.println(" Digite um número válido!");
+                            scanner.next();
                         }
                     }
 
@@ -116,29 +117,71 @@ public class Main {
 
                     if (u1.getSaldo() >= custoTotal) {
                         System.out.print("Confirmar compra? (s/n): ");
-                        scanner.nextLine(); // Limpa buffer
+                        scanner.nextLine();
                         String confirmacao = scanner.nextLine().toLowerCase();
 
                         if (confirmacao.equals("s") || confirmacao.equals("sim")) {
                             u1.comprar(empresaSelecionada, quantidade);
-                            System.out.printf("✅ Compra realizada com sucesso!%n");
+                            System.out.printf(" Compra realizada com sucesso!%n");
                             System.out.printf("Novo saldo: R$ %.2f%n", u1.getSaldo());
                         } else {
-                            System.out.println("❌ Compra cancelada.");
+                            System.out.println(" Compra cancelada.");
                         }
                     } else {
-                        System.out.printf("❌ Saldo insuficiente! Faltam R$ %.2f%n", (custoTotal - u1.getSaldo()));
+                        System.out.printf(" Saldo insuficiente! Faltam R$ %.2f%n", (custoTotal - u1.getSaldo()));
                     }
                     break;
 
-
-
-
-
-                
                 case 3:
+                    if (u1 == null){
+                        System.out.println("Você precisa criar um usuário");
+                        break;
+                    }
+                    System.out.println("\n=== SUA CARTEIRA ===");
+                    List<Acao> carteira = u1.getCarteira();
 
 
+                    for (int i = 0; i < carteira.size(); i++ ){
+                        Acao acao = carteira.get(i);
+                        Empresa emp = acao.getEmpresa();
+                        System.out.printf(" - " + "%d - %s (%s) - Preço: R$ %.2f - Quantidade: %d %n", i + 1, emp.getNome(), emp.getTicker(), emp.getPrecoAcao(), acao.getQuantidade());}
+                    int empresaIndex1 = -1;
+
+                    while (true) {
+                        System.out.print("Digite o índice da empresa desejada (1-" + carteira.size() + "): ");
+
+                        if (scanner.hasNextInt()) {
+                            int empresaUser = scanner.nextInt();
+                            if (empresaUser >= 1 && empresaUser <= carteira.size()) {
+                                empresaIndex1 = empresaUser - 1; // Convertendo para índice do array (0-based)
+                                break;
+                            } else {
+                                System.out.println(" Índice inválido! Escolha entre 1 e " + carteira.size());
+                            }
+                        } else {
+                            System.out.println(" Digite um número válido!");
+                            scanner.next(); // Limpa input inválido
+                        }
+                    }
+
+                    // Validação da quantidade
+                    int qnt = 0;
+                    while (true) {
+                        System.out.print("Digite a quantidade desejada: ");
+
+                        if (scanner.hasNextInt()) {
+                            int qntUser = scanner.nextInt();
+                            if (qntUser > 0) {
+                                qnt = qntUser;
+                                break;
+                            } else {
+                                System.out.println(" A quantidade deve ser maior que zero!");
+                            }
+                        } else {
+                            System.out.println(" Digite um número válido!");
+                            scanner.next();
+                        }
+                    }
 
 
                 default:
