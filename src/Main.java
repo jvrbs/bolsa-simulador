@@ -4,9 +4,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Empresa Petrobras = new Empresa("Petrobras", "PETR4", 35.0, true, 0.05);
-        Empresa Vale = new Empresa("Vale", "VALE3", 70.0, false, 0);
-        Scanner scanner = new Scanner(System.in);
+        Empresa Petrobras = new Empresa("Petrobras", "PETR4", 25.0, true, 0.05,10000000, 36.6);
+        Empresa Vale = new Empresa("Vale", "VALE3", 35.0, false, 0, 15000000, 31.6);        Scanner scanner = new Scanner(System.in);
         int opcao = 0;
         Usuario u1 = null;
 
@@ -124,6 +123,7 @@ public class Main {
                             u1.comprar(empresaSelecionada, quantidade);
                             System.out.printf(" Compra realizada com sucesso!%n");
                             System.out.printf("Novo saldo: R$ %.2f%n", u1.getSaldo());
+                            empresaSelecionada.variacaoCompra(quantidade);
                         } else {
                             System.out.println(" Compra cancelada.");
                         }
@@ -181,7 +181,36 @@ public class Main {
                             System.out.println(" Digite um número válido!");
                             scanner.next();
                         }
+
                     }
+
+                    // Executa o resumo da venda
+                    Acao acaoSelecionada = carteira.get(empresaIndex1);
+                    Empresa empresaVenda = acaoSelecionada.getEmpresa();
+                    double valorVenda = empresaVenda.getPrecoAcao() * qnt;
+
+                    System.out.printf("\n=== RESUMO DA VENDA ===%n");
+                    System.out.printf("Empresa: %s (%s)%n", empresaVenda.getNome(), empresaVenda.getTicker());
+                    System.out.printf("Quantidade a vender: %d ações%n", qnt);
+                    System.out.printf("Quantidade que você possui: %d ações%n", acaoSelecionada.getQuantidade());
+                    System.out.printf("Preço unitário atual: R$ %.2f%n", empresaVenda.getPrecoAcao());
+                    System.out.printf("Valor total da venda: R$ %.2f%n", valorVenda);
+                    System.out.printf("Seu saldo atual: R$ %.2f%n", u1.getSaldo());
+                    System.out.printf("Saldo após venda: R$ %.2f%n", u1.getSaldo() + valorVenda);
+
+                    List<Empresa> todasEmpresas1 = Empresa.getEmpresas();
+                    for (int i = 0; i < todasEmpresas1.size(); i++){
+                        Empresa emp = todasEmpresas1.get(i);
+                         emp.Variacao();
+                    }
+
+
+
+
+
+
+
+
 
 
                 default:
